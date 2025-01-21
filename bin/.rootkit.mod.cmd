@@ -1,1 +1,0 @@
-savedcmd_/home/archlinux/Projects/Murmur/bin/rootkit.mod := printf '%s\n'   init.o utils/socket.o stealth/hidelkm.o stealth/hidenetwork.o stealth/hidefs.o stealth/hideproc.o implant/keylogger.o implant/userloader.o | awk '!x[$$0]++ { print("/home/archlinux/Projects/Murmur/bin/"$$0) }' > /home/archlinux/Projects/Murmur/bin/rootkit.mod

@@ -239,6 +239,6 @@ static void __exit rk_exit(void)
 module_init(rk_init);
 module_exit(rk_exit);
 
-MODULE_AUTHOR("Roby - Hugo - Alexandre - Lucien");
+MODULE_AUTHOR("p2lu - exhyl - MikeHorn-git");
 MODULE_DESCRIPTION("Just a chill kernel module");
 MODULE_LICENSE("GPL");

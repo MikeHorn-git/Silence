@@ -2,17 +2,19 @@
 
 Kprobe-based LKM rootkit.
 
-# Features
+![image](https://www.hdwallpapers.in/thumbs/2021/man_is_standing_alone_on_rock_in_white_mountains_background_4k_hd_alone-t2.jpg)
 
-● ICMP communication
-● Userland agent
-● Keylogger
-● File hide
-● PID hide
-● Port hide
-● LKM hide
-● LKM Persistence
-● Debug
+# Overview
+
+* ICMP communication
+* Userland agent
+* Keylogger
+* File hide
+* PID hide
+* Port hide
+* LKM hide
+* LKM Persistence
+* Debug
 
 # Build
 
@@ -31,25 +33,25 @@ change ccflags-y := -I<abosulte_path_of_project>/include/stealth from src/Kbuild
 
 make
 
-## Clean LKM
+## Makefile
 
-make clean
-
-## Create release
-
-make dist
-
-## Clean release
-
-make distclean
+```makefile
+Usage: make <target>
+Targets:
+  help         Display this help message
+  all          Build LKM
+  clean        Clean LKM
+  dist         Create tar archive release
+  format       Format all .c, .h files with clang-format
+```
 
 # Usage
 
-## Load kernel Module
+## Load LKM
 
-sudo /init_network
-sudo insmod main.ko
-sudo depmod
+1. sudo /init_network
+2. sudo insmod silence.ko
+3. sudo depmod
 
 ## Interact
 
@@ -87,8 +89,10 @@ sudo depmod
 
 ```ping -p fe002f6574632f706173737764000000 -c 1 18.8.8.8```
 
+# Features
+
 # Authors
 
-* [p2lu](https://github.com/p2lu): ICMP communication.
-* [exhyl](https://github.com/hnopew): Keylogger, test and repository project.
-* [MikeHorn-git](https://github.com/MikeHorn-git): Hide and persistence.
+* [p2lu](https://github.com/p2lu): ICMP communication, LKM aggregation and fixes.
+* [exhyl](https://github.com/hnopew): Keylogger, fixes and tests.
+* [MikeHorn-git](https://github.com/MikeHorn-git): Hide, persistence and tests.

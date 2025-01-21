@@ -1,14 +1,14 @@
-BUILD_DIR 	:= $(PWD)/bin
-KERN_VERSION = $(shell uname -r)
-KRN_SRC 	:= /lib/modules/$(KERN_VERSION)/build
+BUILD_DIR     := $(PWD)/bin
+KERN_VERSION  := $(shell uname -r)
+KRN_SRC       := /lib/modules/$(KERN_VERSION)/build
 
-INCLUDE_DIRS := $(shell find ${PWD}/include -type d)
-EXTRA_CFLAGS := $(foreach dir, $(INCLUDE_DIRS), -I$(dir))
+INCLUDE_DIRS  := $(shell find ${PWD}/include -type d)
+EXTRA_CFLAGS  := $(foreach dir, $(INCLUDE_DIRS), -I$(dir))
 
-FILES := '*.c' '*.h'
-FORMAT := clang-format
-TARGET		:= murmur
-DIST_FILES	:= docs include Makefile README.md src test/c2 test/create_image
+FILES         := '*.c' '*.h'
+FORMAT        := clang-format
+TARGET        := silence
+DIST_FILES    := docs include Makefile README.md src test/c2 test/create_image
 
 .DEFAULT_GOAL := all
 

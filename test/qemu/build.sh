@@ -56,12 +56,16 @@ fi
 if [ ! -d "$ROOTFS_DIR/bin" ]; then
     echo "Installing minimal Alpine Linux..."
     sudo docker run -it --rm -v $ROOTFS_DIR:/my-rootfs alpine sh -c '
-      apk add openrc util-linux build-base;
+      apk add alpine-sdk build-base linux-headers openrc sudo util-linux;
       ln -s agetty /etc/init.d/agetty.ttyS0;
       echo ttyS0 > /etc/securetty;
       rc-update add agetty.ttyS0 default;
       rc-update add root default;
       echo "root:password" | chpasswd;
+      adduser --disabled-password alpine
+      echo "alpine:password" | chpasswd;
+      echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
+      adduser alpine wheel
       rc-update add devfs boot;
       rc-update add procfs boot;
       rc-update add sysfs boot;
@@ -71,6 +75,9 @@ if [ ! -d "$ROOTFS_DIR/bin" ]; then
 else
     echo "Root filesystem already populated. Skipping Alpine Linux installation."
 fi
+
+echo "Copy network.sh..."
+sudo cp network.sh "$ROOTFS_DIR"/network.sh
 
 echo "Installing GRUB and Kernel..."
 sudo mkdir -p $ROOTFS_DIR/boot/grub
@@ -87,14 +94,6 @@ menuentry "Linux2600" {
 EOF
 
 sudo grub-install --directory=/usr/lib/grub/i386-pc --boot-directory=$ROOTFS_DIR/boot "$LOOP_BACK_DEV" 
-echo "Copy init_network..."
-if [ -f "init_network" ]; then
-    sudo cp init_network "$ROOTFS_DIR"/init_network
-    sudo chmod +x "$ROOTFS_DIR"/init_network
-else
-    echo "Warning: 'init_network' script not found, skipping."
-fi
-
 echo "Create shared folder in $SHARE_DIR"
 mkdir -p $SHARE_DIR
 

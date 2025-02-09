@@ -1,37 +1,32 @@
 # Description
 
-Kprobe-based LKM rootkit.
+> [!Important]
+> This rootkit is for educational and research purposes only.
+> This project is a prototype, and not fully functionnal.
 
-![image](https://www.hdwallpapers.in/thumbs/2021/man_is_standing_alone_on_rock_in_white_mountains_background_4k_hd_alone-t2.jpg)
+Kprobe-based LKM rootkit. With ICMP communication and Keylogger.
+
+![image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.explicit.bing.net%2Fth%3Fid%3DOIP.ISHOXpUsB9fX9l71a0BBjwHaFj%26pid%3DApi&f=1&ipt=c86d1cb0a5d83dcf729912e13d39ba4e311f76e07fca3329faaa9a0108a9ecc7&ipo=images)
 
 # Overview
 
 * ICMP communication
-* Userland agent
 * Keylogger
 * File hide
 * PID hide
 * Port hide
 * LKM hide
-* LKM Persistence
-* Debug
+* Openrc Persistence
 
 # Build
 
-## First step
-
-Change KRN_SRC from Makefile to your kernel source directory
+## Quick start
 
 ```bash
-change ccflags-y := -I<abosulte_path_of_project>/include from src/Kbuild
-change ccflags-y := -I<abosulte_path_of_project>/include/utils from src/Kbuild
-change ccflags-y := -I<abosulte_path_of_project>/include/implant from src/Kbuild
-change ccflags-y := -I<abosulte_path_of_project>/include/stealth from src/Kbuild
-```
-
-## Compile LKM
-
+git clone https://github.com/MikeHorn-git/Silence
+cd Silence
 make
+```
 
 ## Makefile
 
@@ -45,15 +40,44 @@ Targets:
   format       Format all .c, .h files with clang-format
 ```
 
-# Usage
+# Dev Environment
+
+```bash
+git clone https://github.com/MikeHorn-git/Silence
+cd Silence/test/qemu
+```
+
+## Download Kernel
+
+```bash
+./download.sh
+```
+
+## Build Qemu
+
+```bash
+./build <path_to_bzImage>
+```
+
+## Run Qemu
+
+```bash
+./run.sh
+```
 
 ## Load LKM
 
-1. sudo /init_network
-2. sudo insmod silence.ko
-3. sudo depmod
+```bash
+sh /mount.sh
+sh /network.sh
+insmod silence.ko
+depmod
+```
 
 ## Interact
+
+> [!Important]
+> Do not using ping from [Busybox](https://www.busybox.net/)
 
 ```ping -p <code> -c 1 8.8.8.8```
 
@@ -88,8 +112,6 @@ Targets:
 ### Restore
 
 ```ping -p fe002f6574632f706173737764000000 -c 1 18.8.8.8```
-
-# Features
 
 # Authors
 

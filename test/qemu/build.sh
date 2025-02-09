@@ -56,7 +56,9 @@ fi
 if [ ! -d "$ROOTFS_DIR/bin" ]; then
     echo "Installing minimal Alpine Linux..."
     sudo docker run -it --rm -v $ROOTFS_DIR:/my-rootfs alpine sh -c '
-      apk add alpine-sdk build-base linux-headers openrc sudo util-linux;
+      apk add build-base iputils-ping linux-headers openrc rsyslog sudo util-linux;
+      service rsyslog start
+      rc-update add rsyslog default
       ln -s agetty /etc/init.d/agetty.ttyS0;
       echo ttyS0 > /etc/securetty;
       rc-update add agetty.ttyS0 default;
@@ -76,8 +78,8 @@ else
     echo "Root filesystem already populated. Skipping Alpine Linux installation."
 fi
 
-echo "Copy network.sh..."
-sudo cp network.sh "$ROOTFS_DIR"/network.sh
+echo "Copy shell scripts..."
+sudo cp mount.sh network.sh "$ROOTFS_DIR"
 
 echo "Installing GRUB and Kernel..."
 sudo mkdir -p $ROOTFS_DIR/boot/grub

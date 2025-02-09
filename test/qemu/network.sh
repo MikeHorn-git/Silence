@@ -11,5 +11,3 @@ ip link set eth0 up
 udhcpc
 
 ifconfig eth0 10.0.2.15 netmask 255.255.255.0
-
-/bin/sh 

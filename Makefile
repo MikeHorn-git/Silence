@@ -8,7 +8,7 @@ EXTRA_CFLAGS  := $(foreach dir, $(INCLUDE_DIRS), -I$(dir))
 FILES         := '*.c' '*.h'
 FORMAT        := clang-format
 TARGET        := silence
-DIST_FILES    := docs include Makefile README.md src test/c2 test/create_image
+DIST_FILES    := include Makefile README.md src test
 
 .DEFAULT_GOAL := all
 
@@ -22,15 +22,15 @@ help:
 	@echo "  format       Format all .c, .h files with clang-format"
 
 all:
-	make -C ${KRN_SRC} M=${PWD}/src EXTRA_CFLAGS="$(EXTRA_CFLAGS)" modules
+	@make -C ${KRN_SRC} M=${PWD}/src EXTRA_CFLAGS="$(EXTRA_CFLAGS)" modules
 
 clean:
-	make -C ${KRN_SRC} M=${PWD}/src clean
+	@make -C ${KRN_SRC} M=${PWD}/src clean
 
 dist:
-	tar cvJf $(TARGET).tar.xz $(DIST_FILES)
+	@tar --exclude-from=.gitignore -cvJf $(TARGET).tar.xz $(DIST_FILES)
 
 format:
-	git ls-files $(FILES) | xargs $(FORMAT) -i
+	@git ls-files $(FILES) | xargs $(FORMAT) -i
 
 .PHONY: all clean dist format

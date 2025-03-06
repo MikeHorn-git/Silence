@@ -6,7 +6,7 @@
 
 Kprobe-based LKM rootkit. With ICMP communication and Keylogger.
 
-![image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.explicit.bing.net%2Fth%3Fid%3DOIP.ISHOXpUsB9fX9l71a0BBjwHaFj%26pid%3DApi&f=1&ipt=c86d1cb0a5d83dcf729912e13d39ba4e311f76e07fca3329faaa9a0108a9ecc7&ipo=images)
+![image](https://images7.alphacoders.com/885/885118.jpg)
 
 # Overview
 
@@ -42,9 +42,14 @@ Targets:
 
 # Dev Environment
 
+Build the rootkit before
+
+## Prepare
+
 ```bash
-git clone https://github.com/MikeHorn-git/Silence
-cd Silence/test/qemu
+mkdir /tmp/qemu-share
+cp -r ./src /tmp/qemu-share
+cd ./test/qemu
 ```
 
 ## Download Kernel
@@ -56,7 +61,7 @@ cd Silence/test/qemu
 ## Build Qemu
 
 ```bash
-./build <path_to_bzImage>
+./build.sh <path_to_bzImage>
 ```
 
 ## Run Qemu
@@ -65,12 +70,14 @@ cd Silence/test/qemu
 ./run.sh
 ```
 
+Default credential is root:password
+
 ## Load LKM
 
 ```bash
 sh /mount.sh
 sh /network.sh
-insmod silence.ko
+insmod /tmp/share/src/silence.ko
 depmod
 ```
 
@@ -115,6 +122,6 @@ depmod
 
 # Authors
 
-* [p2lu](https://github.com/p2lu): ICMP communication, LKM aggregation and fixes.
-* [exhyl](https://github.com/hnopew): Keylogger, fixes and tests.
-* [MikeHorn-git](https://github.com/MikeHorn-git): Hide, persistence and tests.
+* [p2lu](https://github.com/p2lu)
+* [exhyl](https://github.com/hnopew)
+* [MikeHorn-git](https://github.com/MikeHorn-git)
